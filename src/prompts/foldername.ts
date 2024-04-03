@@ -1,12 +1,13 @@
 import inquirer from 'inquirer';
-import chalk from 'chalk';
 import fs from 'fs';
+import { IFolderQuestions, Ioptions } from '../interfaces';
+import { greenNoConsole, consoleLog, cyanBrightLog, warning } from '../../lib/helpers';
 
-export const folderNameMissingOptionPrompt = async (options) => {
-    let defaultFolderName = 'nm-kit';
-    const folderQuestions = [];
+export const folderNameMissingOptionPrompt = async (options: Ioptions) => {
+    let defaultFolderName = 'cbe-kit';
+    const folderQuestions: IFolderQuestions[] = [];
   
-    let questionPush = (msgString, folder) => {
+    let questionPush = (msgString: string, folder: string | null) => {
       folderQuestions.push({
         type: 'input',
         name: 'folderName',
@@ -16,7 +17,7 @@ export const folderNameMissingOptionPrompt = async (options) => {
     }
 
     const rootDir = process.cwd();
-    const rootDirContent = fs.readdirSync(rootDir, (err, files) => {
+    const rootDirContent = fs.readdirSync(rootDir, (err: any, files: any) => {
       if (err) {
         throw err;
       }
@@ -30,12 +31,12 @@ export const folderNameMissingOptionPrompt = async (options) => {
       return content.match(defaultFolderName);
     });
   
-    let folderNameAnswers;
+    let folderNameAnswers: any;
 
     let extractedNumbers = matchDefaultValue.map((value) => {
       let valueMatch = value.match(/(\d+)/);
-      if (valueMatch !== null) return value.match(/(\d+)/).map(Number)[0];
-    }).filter(value => { return value !== undefined; });
+      if (valueMatch !== null) return value.match(/(\d+)/)?.map(Number)[0];
+    }).filter(value => { return value !== undefined; }) as number[];
 
     let maxNumber = Math.max(...extractedNumbers);
 
@@ -57,7 +58,7 @@ export const folderNameMissingOptionPrompt = async (options) => {
     if (options.folderName && !options.skipPrompts) {
       try {
         fs.accessSync(`./${options.folderName}`, fs.constants.F_OK);
-          console.log( chalk.cyanBright(`Folder name ${chalk.green(`${options.folderName}`)} already exists`) );
+        cyanBrightLog(`Folder name ${greenNoConsole(`${options.folderName}`)} already exists`);
           questionPush( 'Enter different folder name:', null);
           folderNameAnswers = await inquirer.prompt(folderQuestions);
       } catch (err) {
@@ -80,9 +81,9 @@ export const folderNameMissingOptionPrompt = async (options) => {
   
         if (equalToAtLeastOneFolder === true) {
           if (folderNameAnswers.folderName !== '') {
-            console.log( `Folder name ${chalk.green(`${folderNameAnswers.folderName}`)} already exists` );
+            consoleLog( `Folder name ${greenNoConsole(`${folderNameAnswers.folderName}`)} already exists` );
           } else {
-            console.log( `${chalk.yellowBright(`Folder name cannot be empty`)}` );
+            warning('Folder name cannot be empty');
           }
           folderQuestions.push({
             type: 'input',
@@ -114,7 +115,7 @@ export const folderNameMissingOptionPrompt = async (options) => {
       });
 
       if (matchFolderNameArg) {
-        options.folderName = incrementFolderName();
+        options.folderName = incrementFolderName() as unknown as string;
       }
     }
   

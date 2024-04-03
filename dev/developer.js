@@ -10,14 +10,13 @@ const developerJsFileName = basename(__filename/*, extname(__filename)*/);
 const currentFileUrl = import.meta.url;
 
 let newUrl;
-if (process.platform === "darwin" || process.platform === "linux") {
+if (process.platform === 'darwin' || process.platform === 'linux') {
   newUrl = new URL(currentFileUrl).pathname;
-} else
-  newUrl = new URL(currentFileUrl).pathname.substring(
-    new URL(currentFileUrl).pathname.indexOf("/") + 1
-  );
+} else {
+  newUrl = new URL(currentFileUrl).pathname.substring(new URL(currentFileUrl).pathname.indexOf("/") + 1);
+}
 
-  const cleanupFolderPath = dirname(newUrl);
+const cleanupFolderPath = dirname(newUrl);
 // Change directory into the dynamically gotten parent folder, then extract folder name from path
 chdir(cleanupFolderPath);
 const cleanupFolderName = basename(resolve());
@@ -44,8 +43,10 @@ export const repo = {
     'package.json',
     'spec',
     'src',
-    'templates'
+    'lib',
+    'templates',
+    'tsconfig.json'
   ],
   developerJsFileName,
   cleanupFolderName,
-}
+};

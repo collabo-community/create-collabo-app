@@ -1,36 +1,37 @@
 import arg from 'arg';
-import chalk from 'chalk';
 import { version } from './version';
 import { help, notRecognised } from './help';
 import { folderNameMissingOptionPrompt } from './prompts/foldername';
 import { templateMissingOptionPrompt } from './prompts/template';
 import { downloadTemplateKit } from './main';
+import { Ioptions } from './interfaces';
+import { consoleLog, redBoldLog } from '../lib/helpers';
 
-let parseArgumentsIntoOptions = (rawArgs) => {
+let parseArgumentsIntoOptions = (rawArgs: string[]) => {
 
   //configure --skip-git flag
-  let myHandler = (value, argName, previousValue) => {
+  let myHandler = (value: string, argName: string, previousValue: string) => {
     return previousValue || '--skip-git';
   }
 
   //configure --help flag
-  let helpHandler = (value, argName, previousValue) => {
+  let helpHandler = (value: string, argName: string, previousValue: string) => {
     return previousValue || '--help';
   }
 
   //configure --version flag
-  let versionHelper = (value, argName, previousValue) => {
+  let versionHelper = (value: string, argName: string, previousValue: string) => {
     return previousValue || '--version';
   }
 
   try {
     const args = arg({
       '--git': Boolean,
-      '--skip-git': Boolean,
+      // '--skip-git': Boolean,
       '--yes': Boolean,
       '--install': Boolean,
       '--skip-install': Boolean,
-      '--help': Boolean,
+      // '--help': Boolean,
       '-g': '--git',
       '--skip-git': arg.flag(myHandler), //eslint-disable-line no-dupe-keys
       '-x': '--skip-git',
@@ -62,7 +63,7 @@ let parseArgumentsIntoOptions = (rawArgs) => {
   }
 }
 
-let otherOptions = async (options) => {
+let otherOptions = async (options: Ioptions) => {
   if (options.skipInstall) {
     options.runInstall = false;
   }
@@ -75,27 +76,27 @@ let otherOptions = async (options) => {
 
   options = await templateMissingOptionPrompt(updatedOptions, folderNameAnswers, defaultFolderName);
 
-  //console.log(options);
+  // consoleLog(options);
 
   try {
     await downloadTemplateKit(options);
   } catch (err) {
-    console.log(chalk.red.bold('ERROR'), err);
+    redBoldLog('ERROR', err);
   }
 }
 
-export let cli = async (args) => {
+export let cli = async (args: string[]) => {
   let options = parseArgumentsIntoOptions(args);
 
   try {
-    if (options.help) {
+    if (options?.help) {
       help();
-    } else if (options.version) {
+    } else if (options?.version) {
       version();
     } else {
-      await otherOptions(options);
+      await otherOptions(options as Ioptions);
     }
   } catch (err) {
-    console.log('');
+    consoleLog('');
   }
 }

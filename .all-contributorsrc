@@ -129,8 +129,8 @@
       ]
     }
   ],
-  "projectName": "node-mongo-cli",
-  "projectOwner": "code-collabo",
+  "projectName": "create-collabo-app",
+  "projectOwner": "collabo-community",
   "repoType": "github",
   "repoHost": "https://github.com",
   "skipCi": true,
