@@ -11,10 +11,10 @@
   "scripts": {
     "predev": "node -r esm dev/customize/startMessage.js",
     "dev": "npm-run-all --parallel ts:watch lint:watch",
+    "cleanup": "node -r esm dev/cleanup.js",
     "lint": "esw src --color",
     "lint:watch": "npm run lint -- --watch",
     "ts:watch": "tsc -w",
-    "cleanup": "node -r esm dev/cleanup.js",
     "test": "npm-run-all --parallel test-message dev-test",
     "dev-test": "nodemon --exec babel-node spec/run.js",
     "CI-test": "babel-node spec/run.js",
