@@ -10,9 +10,9 @@
   },
   "scripts": {
     "predev": "node -r esm dev/customize/startMessage.js",
-    "dev": "npm-run-all --parallel ts:watch lint:watch",
+    "dev": "npm-run-all --parallel lint:watch ts:watch",
     "cleanup": "node -r esm dev/cleanup.js",
-    "lint": "esw src --color",
+    "lint": "esw src --ext .ts --color",
     "lint:watch": "npm run lint -- --watch",
     "ts:watch": "tsc -w",
     "test": "npm-run-all --parallel test-message dev-test",
