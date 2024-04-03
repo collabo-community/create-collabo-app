@@ -1,12 +1,11 @@
 {
-  "name": "@code-collabo/create-collabo-app",
+  "name": "@collabo-community/create-collabo-app",
   "version": "0.0.0",
   "description": "",
   "main": "src/cli.ts",
   "bin": {
-    "@code-collabo/node-mongo-cli": "bin/create-node-mongo-project",
-    "node-mongo": "bin/create-node-mongo-project",
-    "nmgo": "bin/create-node-mongo-project"
+    "@collabo-community/create-collabo-app": "bin/create-collabo-app",
+    "collabo-be": "bin/create-collabo-app"
   },
   "scripts": {
     "predev": "node -r esm dev/customize/startMessage.js",
