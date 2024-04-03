@@ -3,21 +3,13 @@ import { repo } from './developer';
 const { cwd, chdir } = process;
 import { success, warning, error, consoleLog } from '../lib/helpers';
 
-// -------------------------------------------------------------------------------------------------
-// TODO 1 (after CLI upgrade): Configure cleanup to run using node-mongo command i.e. "node-mongo cleanup" not "npm run cleanup"
-// TODO 2 (if possible): (I don't think you will need this TODO when this is done using the "node-mongo cleanup" command - or it might need slight modification)
-          // update package.json cleanup script dynamically with the cleanup file path.
-          // This means you will have to get the cleanup file name/path dynamically too...
-// Or... (instead) should cleanup script be handled a pre-commit hook or pre-push hook or something? - We'll see...
-// -------------------------------------------------------------------------------------------------
-
 // cd into repo root
 chdir('../');
 
 // use repo root
 const rootDir = cwd();
 
-// return all files and folders in repo root i.e. original + node-mongo generated
+// return all files and folders in repo root i.e. original + create-collabo-app generated
  const repoContent = readdirSync(rootDir, (err, filesAndFolders) => {
     if (err) {
       throw err;
@@ -45,12 +37,6 @@ if (filterContentToGetTheOnesGeneratedByCLI.length) {
     error(err);
   }
 } else {
-  warning('ℹ There are no folders to delete yet. Generate folder(s) using the "node-mongo" command, then run the cleanup script after you are done developing, and are ready to add and push your changes/fixes.\n');
+  warning('ℹ There are no project folders to delete yet. Generate project folder(s) using the "collabo-be" command, then run the cleanup script after you are done developing, and are ready to add and push your changes/fixes to GitHub.\n');
 }
 
-// ------------------------------------
-// TODO: Write another script at the end of this file
-// that updates this repoContent list back when done.
-// Is this TODO even needed? - We'll see. For now the
-// solution ending here works fine.
-// ------------------------------------

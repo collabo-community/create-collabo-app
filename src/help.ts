@@ -4,26 +4,26 @@ export const help = () => {
 consoleLog(
 `
 Usage:
-node-mongo <folder_name> <template>
+collabo-be <folder_name> <template>
 
 Usage (for shorter command alternative):
-nmgo <folder_name> <template>
+c-be <folder_name> <template>
 
 Command:
-node-mongo
+collabo-be
 
 Command (shorter command alternative):
-nmgo 
+c-be 
 
 Arguments:
 <folder_name>   Replace this with your folder name
 <template>      Available templates: ts, esm and cjs
 
 Usage example:
-node-mongo test-folder ts
+collabo-be test-folder ts
 
 Usage example (for shorter command alternative):
-nmgo test-folder ts
+c-be test-folder ts
 
 The above example bootstraps the ts template i.e.
 the typescript template into a folder named test-folder.
@@ -60,20 +60,20 @@ consoleLog(
 Flag(s) not recognised. Use any of the help command below for more info:
 
 Help command:
-node-mongo --help
+collabo-be --help
 
 Help command (for shorter command alternative):
-nmgo --help`
+c-be --help`
 );
 }
 
 export const userSupport = () => {
 warning(
 `
-It looks like the node-mongo-cli does not work yet for your computer's operating system. Let us know the issue with the CLI on your computer's operating system by reporting it here:
-https://github.com/code-collabo/node-mongo-cli/issues/new?assignees=&labels=bug&template=cli-user-error-report.md
+It looks like the create-collabo-app does not work yet for your computer's operating system. Let us know the issue with the CLI on your computer's operating system by reporting it here:
+https://github.com/collabo-community/user-issue-report/issues
 
 Alternatively, you can download and access the API boilerplate templates from the template's github repo:
-https://github.com/code-collabo/node-mongo-api-boilerplate-templates
+https://github.com/collabo-community/backend-api-boilerplates
 `);
 }

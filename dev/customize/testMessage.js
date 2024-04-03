@@ -1,3 +1,3 @@
 import { cyanBrightLog } from '../../lib/helpers';
 
-cyanBrightLog('\nnode-mongo-cli: running jasmine tests...\n');
+cyanBrightLog('\ncreate-collabo-app: running jasmine tests...\n');

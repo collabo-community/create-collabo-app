@@ -21,7 +21,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/code-collabo/node-mongo-cli.git"
+    "url": "https://github.com/collabo-community/create-collabo-app.git"
   },
   "keywords": [
     "create",
@@ -49,9 +49,9 @@
   "author": "Obiagba Mary",
   "license": "AGPL-3.0",
   "bugs": {
-    "url": "https://github.com/code-collabo/node-mongo/issues"
+    "url": "https://github.com/collabo-community/user-issue-report/issues"
   },
-  "homepage": "https://github.com/code-collabo/node-mongo-cli#readme",
+  "homepage": "https://github.com/collabo-community/create-collabo-app#readme",
   "dependencies": {
     "arg": "^5.0.2",
     "chalk": "^4.1.0",

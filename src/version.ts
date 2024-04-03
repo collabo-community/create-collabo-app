@@ -4,7 +4,7 @@ import { consoleLog } from '../lib/helpers';
 export const version = () => {
 consoleLog(
 `
-node-mongo-cli v${package_json.version}
+create-collabo-app v${package_json.version}
 `
 );
 }
