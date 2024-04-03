@@ -1,3 +1,3 @@
 import { success } from '../../lib/helpers';
 
-success('\nℹ Collabo Community "Create Collabo App": running in dev mode...\n');
+success('\nℹ create-collabo-app: running in dev mode...\n');

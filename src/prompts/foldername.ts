@@ -4,7 +4,7 @@ import { IFolderQuestions, Ioptions } from '../interfaces';
 import { greenNoConsole, consoleLog, cyanBrightLog, warning } from '../../lib/helpers';
 
 export const folderNameMissingOptionPrompt = async (options: Ioptions) => {
-    let defaultFolderName = 'nm-kit';
+    let defaultFolderName = 'cbe-kit';
     const folderQuestions: IFolderQuestions[] = [];
   
     let questionPush = (msgString: string, folder: string | null) => {
