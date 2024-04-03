@@ -10,7 +10,7 @@ const developerJsFileName = basename(__filename/*, extname(__filename)*/);
 const currentFileUrl = import.meta.url;
 
 let newUrl;
-if (process.platform === "darwin" || process.platform === "linux") {
+if (process.platform === 'darwin' || process.platform === 'linux') {
   newUrl = new URL(currentFileUrl).pathname;
 } else {
   newUrl = new URL(currentFileUrl).pathname.substring(new URL(currentFileUrl).pathname.indexOf("/") + 1);
