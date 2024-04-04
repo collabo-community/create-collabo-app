@@ -1,6 +1,6 @@
 {
   "root": true,
-  "parser": "@babel/eslint-parser",
+  "parser": "@typescript-eslint/parser",
   "extends": [
     "eslint:recommended",
     "plugin:import/warnings",
@@ -16,6 +16,7 @@
     "es6": true
   },
   "rules": {
-    "no-console": 1
+    "no-console": 0,
+    "no-unused-vars": 1
   }
 }
