@@ -2,7 +2,6 @@ import inquirer from 'inquirer';
 import fs from 'fs';
 import { IFolderQuestions, Ioptions } from '../interfaces';
 import { greenNoConsole, consoleLog, cyanBrightLog, warning } from '../../lib/helpers';
-import { userSupport } from '../help';
 
 export const folderNameMissingOptionPrompt = async (options: Ioptions) => {
     let defaultFolderName = 'cbe-kit';
@@ -24,8 +23,8 @@ export const folderNameMissingOptionPrompt = async (options: Ioptions) => {
     try {
       rootDirContent = fs.readdirSync(rootDir);
     } catch (err) {
-      userSupport();
-      process.exit(1);
+      console.log(err)
+      throw err
     }
   
     rootDirContent.push('');
