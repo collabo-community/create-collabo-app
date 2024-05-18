@@ -1,4 +1,22 @@
 #!/usr/bin/env node
 
-require = require('esm')(module /*, options */);
-require('../dist/src/cli').cli(process.argv);
+var require = require('esm')(module /*, options */);
+const path = require('path')
+const fs = require('fs');
+const { warning } = require('../lib/helpers');
+
+const dist_folder = path.join('./', 'dist');
+
+function check_and_run_dist_folder() {
+    fs.access(dist_folder, fs.constants.F_OK, (err) => {
+        if(err){
+            warning('ERROR: Node mongo cli requires a dist folder to function  run "npm run dev" to clear this error')
+        }else{
+            require('../dist/src/cli').cli(process.argv);
+
+        }
+    })
+
+}
+
+check_and_run_dist_folder()
