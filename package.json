@@ -10,11 +10,13 @@
   },
   "scripts": {
     "predev": "node -r esm dev/customize/startMessage.js",
-    "dev": "npm-run-all --parallel lint:watch ts:watch",
+    "dev": "npm-run-all --parallel lint:watch tsc:dev:watch",
+    "production:build": "npm-run-all --parallel lint tsc:prod",
     "cleanup": "node -r esm dev/cleanup.js",
     "lint": "esw src --ext .ts --color",
     "lint:watch": "npm run lint -- --watch",
-    "ts:watch": "tsc -w",
+    "tsc:dev:watch": "tsc -p tsconfig.dev.json -w",
+    "tsc:prod": "tsc -p tsconfig.prod.json",
     "test": "npm-run-all --parallel test-message dev-test",
     "dev-test": "nodemon --exec babel-node spec/run.js",
     "CI-test": "babel-node spec/run.js",
@@ -88,7 +90,7 @@
   },
   "files": [
     "bin/",
-    "dist/src/",
+    "build/src/",
     "templates/"
   ]
 }

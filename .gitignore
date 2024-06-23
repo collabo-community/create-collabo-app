@@ -11,6 +11,7 @@ test.js
 
 # compiled output
 /dist
+/build
 /tmp
 /out-tsc
 # Only exists if Bazel was run
