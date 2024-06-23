@@ -1,22 +1,142 @@
 #!/usr/bin/env node
 
 var require = require('esm')(module /*, options */);
-const path = require('path')
-const fs = require('fs');
-const { warning } = require('../lib/helpers');
 
-const dist_folder = path.join('./', 'dist');
+const { readdirSync, access, constants } = require('fs');
+const { promisify } = require('util');
+const { join } = require('path');
+const { warning, error } = require('../lib/helpers');
 
-function check_and_run_dist_folder() {
-    fs.access(dist_folder, fs.constants.F_OK, (err) => {
-        if(err){
-            warning('ERROR: Node mongo cli requires a dist folder to function  run "npm run dev" to clear this error')
-        }else{
-            require('../dist/src/cli').cli(process.argv);
+const { argv, env } = process;
+const fs_access = promisify(access);
+const dist_folder = join('./', 'dist');
 
+const folder = {
+    content: {
+        /* ---------------------------------------------------
+            Lists the files and/or folders in the targetFolder
+            of your choice (in an array)
+        --------------------------------------------------- */
+        list: ({ targetFolder }) => {
+            const folderContent = readdirSync(targetFolder, (err, filesAndFolders) => {
+                if (err) {
+                  throw err;
+                }
+                return filesAndFolders;
+            });
+            return folderContent;
+        },
+        /* ---------------------------------------------------
+            Checks the files and/or folders in the targetFolder
+            of your choice (in an array)
+        --------------------------------------------------- */
+        exists: ({ searchFolder, searchFor }) => {
+            const folderContent = folder.content.list({ targetFolder: searchFolder });
+            return folderContent.some(folder => folder === searchFor);
+        },
+    },
+};
+
+const rootFolder = './';
+
+const test = async ({ success, error }) => {
+    const devMode = folder.content.exists({ searchFolder: rootFolder, searchFor: 'dev' });
+    const prodMode = !devMode && folder.content.exists({ searchFolder: rootFolder, searchFor: 'dist' });
+    //--- set node environment
+    if (devMode) env.NODE_ENV = 'development';
+    if (prodMode) env.NODE_ENV = 'production';
+
+    if (env.NODE_ENV === 'development') {
+        try {
+            await success();
+        } catch(err) {
+            error({ err });
         }
-    })
-
+    }
 }
 
-check_and_run_dist_folder()
+const collabo_app = {
+    cli: {
+        start: () => require('../dist/src/cli').cli(argv),
+        error: ({ message }) => {
+            const distFolderExists = folder.content.exists({ searchFolder: rootFolder, searchFor: 'dist' });
+            const dynamicErrorDetails = distFolderExists ? 'existing \'dist\' does not have required code to run CLI' : `No 'dist' folder detected - ${message}`;
+            const dynamicWarningText = distFolderExists ? 'correct \'dist\' folder content' : '\'dist\' folder with required content';
+            error(`ERROR: ${dynamicErrorDetails}`);
+            warning(`ℹ Follow these steps to generate ${dynamicWarningText}: \n- Open up another terminal, run the "npm run dev" script command there (keep this new terminal open always)\n- Go back to running the 'collabo-be' command in the previously open terminal, the CLI should now run successfully`);
+        },
+    },
+    // run: async ({ success, error }) => {
+    //     const devMode = folder.content.exists({ searchFolder: rootFolder, searchFor: 'dev' });
+    //     const prodMode = !devMode && folder.content.exists({ searchFolder: rootFolder, searchFor: 'dist' });
+    //     //--- set node environment
+    //     if (devMode) env.NODE_ENV = 'development';
+    //     if (prodMode) env.NODE_ENV = 'production';
+    
+    //     if (env.NODE_ENV === 'development') {
+    //         try {
+    //             await success();
+    //         } catch(err) {
+    //             error({ err });
+    //         }
+    //     } 
+    // },
+    run: async () => {
+        test({
+            success: async () => {
+                await fs_access(dist_folder, constants.F_OK);
+                collabo_app.cli.start();
+            },
+            error: ({ err }) => {
+                collabo_app.cli.error({ message: err.message });
+            }
+        });
+    },
+    // cli: {
+    //     start: () => require('../dist/src/cli').cli(argv),
+    //     error: ({ dynamicErrorDetails, dynamicWarningText }) => {
+    //         error(`ERROR: ${dynamicErrorDetails}`);
+    //         warning(`ℹ Follow these steps to generate ${dynamicWarningText}: \n- Open up another terminal, run the "npm run dev" script command there (keep this new terminal open always)\n- Go back to running the 'collabo-be' command in the previously open terminal, the CLI should now run successfully`);
+    //     },
+    // },
+    // run: async () => {
+    //     const repoContent = readdirSync('./', (err, filesAndFolders) => {
+    //         if (err) {
+    //           throw err;
+    //         }
+
+    //         return filesAndFolders;
+    //     });
+    //     const folderExists = ({ name }) => repoContent.some(folder => folder === name);
+    //     const devMode = folderExists({ name: 'dev' });
+    //     env.NODE_ENV = devMode ? 'development' : 'production';
+    //     if (env.NODE_ENV === 'development') {
+    //         try {
+    //             await fs_access(dist_folder, constants.F_OK);
+    //             collabo_app.cli.start();
+    //         } catch(err) {
+    //             const dynamicErrorDetails = folderExists({ name: 'dist' }) ? 'existing \'dist\' does not have required code to run CLI' : `No 'dist' folder detected - ${err.message}`;
+    //             const dynamicWarningText = folderExists({ name: 'dist' }) ? 'correct \'dist\' folder content' : '\'dist\' folder with required content';
+    //             collabo_app.cli.error({ 
+    //                 dynamicErrorDetails,
+    //                 dynamicWarningText, 
+    //             });
+    //         }
+    //     } 
+    //     if (env.NODE_ENV === 'production') {
+    //         collabo_app.cli.start();
+    //     }
+    // },
+};
+
+collabo_app.run();
+
+// collabo_app.run({
+//     success: async () => {
+//         await fs_access(dist_folder, constants.F_OK);
+//         collabo_app.cli.start();
+//     },
+//     error: ({ err }) => {
+//         collabo_app.cli.error({ message: err.message });
+//     }
+// });
