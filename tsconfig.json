@@ -3,7 +3,6 @@
   "_version": "20.1.0",
   "compilerOptions": {
     "lib": ["es2023"],
-    "outDir": "dist",
     "module": "ES2022",
     "target": "ES5",
     "strict": true,
