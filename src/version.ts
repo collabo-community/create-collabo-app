@@ -1,8 +1,8 @@
 import package_json from '../package.json';
-import { consoleLog } from '../lib/helpers';
+import { prettify } from '../lib/js/helpers/prettify';
 
 export const version = () => {
-consoleLog(
+prettify.log.color.none(
 `
 create-collabo-app v${package_json.version}
 `

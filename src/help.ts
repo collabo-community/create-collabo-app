@@ -1,7 +1,7 @@
-import { warning, consoleLog } from '../lib/helpers';
+import { prettify, warning } from '../lib/js/helpers/prettify';
 
 export const help = () => {
-consoleLog(
+prettify.log.color.none(
 `
 Usage:
 collabo-be <folder_name> <template>
@@ -55,7 +55,7 @@ folder name used already exists.
 }
 
 export const notRecognised = () => {
-consoleLog(
+prettify.log.color.none(
 `
 Flag(s) not recognised. Use any of the help command below for more info:
 

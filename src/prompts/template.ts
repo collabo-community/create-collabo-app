@@ -1,6 +1,6 @@
 import inquirer from 'inquirer';
 import { IFoldernameAnswers, Ioptions, ItemplateOptions, TemplateQuestions } from '../interfaces';
-import { redBrightNoConsole, consoleLog } from '../../lib/helpers';
+import { prettify } from '../../lib/js/helpers/prettify';
 
 let skipPromptsModified = (options: Ioptions, defaultFolderName: string, notAmongTemplateCollection: boolean, defaultTemplate: ItemplateOptions) => {
   if (notAmongTemplateCollection && (options.template !== undefined || options.template === undefined)) {
@@ -50,7 +50,7 @@ export const templateMissingOptionPrompt = async (options: Ioptions, folderNameA
 
   const notAmongTemplateCollection = equalToAtLeastOneTemplate === false;
 
-  if (notAmongTemplateCollection && options.template !== undefined && !options.skipPrompts) consoleLog(`${redBrightNoConsole(`${options.template}`)} is not in the create-collabo-app backend API template collection`);
+  if (notAmongTemplateCollection && options.template !== undefined && !options.skipPrompts) prettify.log.color.none(`${prettify.text.error(`${options.template}`)} is not in the create-collabo-app backend API template collection`);
 
   if (!options.template || notAmongTemplateCollection) {
     templateQuestions.push({
