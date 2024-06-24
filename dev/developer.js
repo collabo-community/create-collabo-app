@@ -46,7 +46,7 @@ export const repo = {
     'lib',
     'templates',
     'tsconfig.json',
-    'dist'
+    'dist' // prevent dist from being deleted here, with checks added to prevent associated errors in the bin folder
   ],
   developerJsFileName,
   cleanupFolderName,
