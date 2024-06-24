@@ -1,3 +1,3 @@
-import { cyanBrightLog } from '../../lib/helpers';
+import { prettify } from '../../lib/js/helpers/prettify';
 
-cyanBrightLog('\nℹ create-collabo-app: running jasmine tests...\n');
+prettify.log.color.cyanBright('\nℹ create-collabo-app: running jasmine tests...\n');

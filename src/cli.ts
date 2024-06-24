@@ -5,7 +5,7 @@ import { folderNameMissingOptionPrompt } from './prompts/foldername';
 import { templateMissingOptionPrompt } from './prompts/template';
 import { downloadTemplateKit } from './main';
 import { Ioptions } from './interfaces';
-import { consoleLog, redBoldLog } from '../lib/helpers';
+import { prettify } from '../lib/js/helpers/prettify';
 
 let parseArgumentsIntoOptions = (rawArgs: string[]) => {
 
@@ -81,7 +81,7 @@ let otherOptions = async (options: Ioptions) => {
   try {
     await downloadTemplateKit(options);
   } catch (err) {
-    redBoldLog('ERROR', err);
+    prettify.log.color.redBold('ERROR', err);
   }
 }
 
@@ -97,6 +97,6 @@ export let cli = async (args: string[]) => {
       await otherOptions(options as Ioptions);
     }
   } catch (err) {
-    consoleLog('');
+    prettify.log.color.none('');
   }
 }

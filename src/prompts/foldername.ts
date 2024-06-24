@@ -1,7 +1,7 @@
 import inquirer from 'inquirer';
 import fs from 'fs';
 import { IFolderQuestions, Ioptions } from '../interfaces';
-import { greenNoConsole, consoleLog, cyanBrightLog, warning } from '../../lib/helpers';
+import { prettify, warning } from '../../lib/js/helpers/prettify';
 
 export const folderNameMissingOptionPrompt = async (options: Ioptions) => {
     let defaultFolderName = 'cbe-kit';
@@ -58,7 +58,7 @@ export const folderNameMissingOptionPrompt = async (options: Ioptions) => {
     if (options.folderName && !options.skipPrompts) {
       try {
         fs.accessSync(`./${options.folderName}`, fs.constants.F_OK);
-        cyanBrightLog(`Folder name ${greenNoConsole(`${options.folderName}`)} already exists`);
+        prettify.log.color.cyanBright(`Folder name ${prettify.text.color.green(`${options.folderName}`)} already exists`);
           questionPush( 'Enter different folder name:', null);
           folderNameAnswers = await inquirer.prompt(folderQuestions);
       } catch (err) {
@@ -81,7 +81,7 @@ export const folderNameMissingOptionPrompt = async (options: Ioptions) => {
   
         if (equalToAtLeastOneFolder === true) {
           if (folderNameAnswers.folderName !== '') {
-            consoleLog( `Folder name ${greenNoConsole(`${folderNameAnswers.folderName}`)} already exists` );
+            prettify.log.color.none( `Folder name ${prettify.text.color.green(`${folderNameAnswers.folderName}`)} already exists` );
           } else {
             warning('Folder name cannot be empty');
           }
