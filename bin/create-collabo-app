@@ -2,41 +2,14 @@
 
 var require = require('esm')(module /*, options */);
 
-const { readdirSync, access, constants } = require('fs');
+const { access, constants } = require('fs');
 const { promisify } = require('util');
 const { join } = require('path');
-const { warning, error } = require('../lib/helpers');
+const { warning, error } = require('../lib/js/helpers/prettify');
+const { folder } = require('../lib/nodejs/helpers/folder');
 
 const { argv, env } = process;
 const fs_access = promisify(access);
-
-const folder = {
-    content: {
-        /* ---------------------------------------------------
-            Returns: Array of strings
-            Description: Lists the files and/or folders in the
-            folder supplied
-        ----------------------------------------------------*/
-        list: ({ targetFolder }) => {
-            const folderContent = readdirSync(targetFolder, (err, filesAndFolders) => {
-                if (err) {
-                  throw err;
-                }
-                return filesAndFolders;
-            });
-            return folderContent;
-        },
-        /* -----------------------------------------------------
-            Returns: boolean
-            Description: Confirms the existence of a single file
-            or folder, inside the folder supplied
-        -------------------------------------------------------*/
-        exists: ({ searchFolder, searchFor }) => {
-            const folderContent = folder.content.list({ targetFolder: searchFolder });
-            return folderContent.some(folder => folder === searchFor);
-        },
-    },
-};
 
 const rootFolder = './';
 

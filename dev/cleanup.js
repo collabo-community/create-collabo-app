@@ -1,7 +1,7 @@
 import { readdirSync, rmdirSync } from 'fs';
 import { repo } from './developer';
 const { cwd, chdir } = process;
-import { success, warning, error, consoleLog } from '../lib/helpers';
+import { success, warning, error, prettify } from '../lib/js/helpers/prettify';
 
 // cd into repo root
 chdir('../');
@@ -32,7 +32,7 @@ if (filterContentToGetTheOnesGeneratedByCLI.length) {
       success(`✔ ${folder} folder deleted successfully`);
       return rmdirSync(folder, { recursive: true, force: true });
     });
-    consoleLog('');
+    prettify.log.color.none('');
   } catch (err) {
     error(err);
   }
