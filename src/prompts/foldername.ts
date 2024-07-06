@@ -17,13 +17,14 @@ export const folderNameMissingOptionPrompt = async (options: Ioptions) => {
     }
 
     const rootDir = process.cwd();
-    const rootDirContent = fs.readdirSync(rootDir, (err: any, files: any) => {
-      if (err) {
-        throw err;
-      }
-  
-      return files;
-    });
+    let rootDirContent: string[] = [];
+
+    try {
+      rootDirContent = fs.readdirSync(rootDir);
+    } catch (err) {
+      console.log(err)
+      throw err
+    }
   
     rootDirContent.push('');
   
