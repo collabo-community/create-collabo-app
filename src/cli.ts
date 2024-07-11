@@ -6,6 +6,7 @@ import { templateMissingOptionPrompt } from './prompts/template';
 import { downloadTemplateKit } from './main';
 import { Ioptions } from './interfaces';
 import { prettify } from '../lib/js/helpers/prettify';
+import { versioningRelease } from './prompts/release-version';
 
 let parseArgumentsIntoOptions = (rawArgs: string[]) => {
 
@@ -53,6 +54,7 @@ let parseArgumentsIntoOptions = (rawArgs: string[]) => {
       skipGit: args['--skip-git'],
       folderName: args._[0],
       template: args._[1],
+      releaseVersion: args._[2],
       runInstall: args['--install'] || true,
       skipInstall: args['--skip-install'] || false,
       help: args['--help'] || false,
@@ -76,7 +78,9 @@ let otherOptions = async (options: Ioptions) => {
 
   options = await templateMissingOptionPrompt(updatedOptions, folderNameAnswers, defaultFolderName);
 
-  // consoleLog(options);
+  options = await versioningRelease(options)
+
+  // console.log(options);
 
   try {
     await downloadTemplateKit(options);

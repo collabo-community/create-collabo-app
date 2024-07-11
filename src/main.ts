@@ -53,6 +53,11 @@ let copyTemplateFolderContent = async (options: {templateDirectory: string; targ
   });
 }
 
+let removeTemplateFolder = async (folder: string) => {
+    await execa('rm', ['-rf', folder]);
+    // await fs.promises.rm(folder, { recursive: true, force: true })
+}
+
 let gitInit = async (options: {git: boolean | string; targetDirectory: string}) => {
   if (options.git) { //git init only if git returns true
     const result = await execa('git', ['init'], {
@@ -84,6 +89,25 @@ export let downloadTemplateKit = async (options: Ioptions) => {
 
   //create folder with user input here...
   fs.mkdirSync(`./${options.folderName}`, { recursive: true });
+
+    // Clone repo into templates
+    try {
+      console.log('Finding files...');
+    
+      const repoUrl = 'https://github.com/collabo-community/backend-api-boilerplates.git'
+           
+        console.log(`Cloning version: ${options.releaseVersion}`);
+        
+      await execa('git', ['clone','--branch', `@release/${options.releaseVersion}` , repoUrl, 'templates'], {
+        cwd: options.targetDirectory
+        });
+      
+      prettify.log.success(`✔ successfully downloaded ${options.template}`);
+     
+    } catch (error:any) {
+      console.error('Failed to clone repository:', error.stderr);
+      return;
+    }
 
   //change directory from root/parent folder into user's own folder (so that it becomes cwd)
   process.chdir(`./${options.folderName}`);
@@ -125,6 +149,10 @@ export let downloadTemplateKit = async (options: Ioptions) => {
     {
       title: `${prettify.text.color.green(`${options.template} template`)} copied into the generated folder ${prettify.text.color.green(`=> ${options.folderName}`)}`,
       task: () => copyTemplateFolderContent(options)
+    },
+    {
+      title: `Cleaning up ${prettify.text.color.green(`templates`)} folder`,
+      task: () => removeTemplateFolder(path.resolve(newUrl, '../../../templates'))
     },
     {
       title: 'git init',
