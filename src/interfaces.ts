@@ -20,6 +20,7 @@ export interface Ioptions {
   skipInstall: boolean;
   help: string | boolean;
   version: string | boolean;
+  releaseVersion: string;
 }
 
 export interface IFoldernameAnswers {
