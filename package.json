@@ -1,7 +1,7 @@
 {
   "name": "@collabo-community/create-collabo-app",
   "version": "0.0.0",
-  "description": "",
+  "description": "The Create Collabo App CLI automates repetitive tasks in the course of developing Collabo Community projects, or your own personal projects. The CLI is also used to automate the building blocks framework.",
   "main": "src/cli.ts",
   "bin": {
     "@collabo-community/create-collabo-app": "bin/create-collabo-app",
@@ -66,6 +66,7 @@
     "collabo",
     "community",
     "code",
+    "project",
     "automate",
     "cli",
     "command",
