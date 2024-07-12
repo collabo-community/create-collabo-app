@@ -1,4 +1,8 @@
 {
+  "projectName": "create-collabo-app",
+  "projectOwner": "collabo-community",
+  "repoType": "github",
+  "repoHost": "https://github.com",
   "files": [
     "README.md"
   ],
@@ -6,17 +10,8 @@
   "commit": false,
   "contributorsPerLine": 6,
   "contributorsSortAlphabetically": true,
+  "skipCi": true,
   "contributors": [
-    {
-      "login": "Ifycode",
-      "name": "Obiagba Mary Ifeoma",
-      "avatar_url": "https://avatars.githubusercontent.com/u/45185388?v=4",
-      "profile": "https://github.com/Ifycode",
-      "contributions": [
-        "code",
-        "doc"
-      ]
-    },
     {
       "login": "chuddyjoachim",
       "name": "Chikezie Joachim",
@@ -32,7 +27,6 @@
       "avatar_url": "https://avatars.githubusercontent.com/u/35923605?v=4",
       "profile": "http://hritikr.me",
       "contributions": [
-        "doc",
         "code"
       ]
     },
@@ -42,7 +36,6 @@
       "avatar_url": "https://avatars.githubusercontent.com/u/29425128?v=4",
       "profile": "https://keithanphilander-e53b5c.netlify.app/",
       "contributions": [
-        "bug",
         "code"
       ]
     },
@@ -61,7 +54,7 @@
       "avatar_url": "https://avatars.githubusercontent.com/u/79567009?v=4",
       "profile": "https://github.com/izhar360",
       "contributions": [
-        "doc"
+        "code"
       ]
     },
     {
@@ -70,7 +63,7 @@
       "avatar_url": "https://avatars.githubusercontent.com/u/67158080?v=4",
       "profile": "https://github.com/Sync271",
       "contributions": [
-        "doc"
+        "code"
       ]
     },
     {
@@ -79,16 +72,7 @@
       "avatar_url": "https://avatars.githubusercontent.com/u/70102539?v=4",
       "profile": "https://olaleye.vercel.app/",
       "contributions": [
-        "doc"
-      ]
-    },
-    {
-      "login": "all-contributors",
-      "name": "All Contributors",
-      "avatar_url": "https://avatars.githubusercontent.com/u/46410174?v=4",
-      "profile": "https://allcontributors.org",
-      "contributions": [
-        "infra"
+        "code"
       ]
     },
     {
@@ -97,8 +81,7 @@
       "avatar_url": "https://avatars.githubusercontent.com/u/75276934?v=4",
       "profile": "https://github.com/samuko-things",
       "contributions": [
-        "code",
-        "bug"
+        "code"
       ]
     },
     {
@@ -107,7 +90,7 @@
       "avatar_url": "https://avatars.githubusercontent.com/u/91491738?v=4",
       "profile": "https://github.com/Dkingofcode",
       "contributions": [
-        "doc"
+        "code"
       ]
     },
     {
@@ -129,11 +112,6 @@
       ]
     }
   ],
-  "projectName": "create-collabo-app",
-  "projectOwner": "collabo-community",
-  "repoType": "github",
-  "repoHost": "https://github.com",
-  "skipCi": true,
   "commitConvention": "angular",
   "commitType": "docs"
 }
