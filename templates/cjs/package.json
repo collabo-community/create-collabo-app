@@ -1,0 +1,33 @@
+{
+  "name": "node-mongo-api-boilerplate-template-cjs",
+  "version": "1.0.0",
+  "description": "@code-collabo node-mongo API boilerplate template - common js",
+  "main": "src/server.[atlas/local].js",
+  "scripts": {
+    "dev": "node -r esm node-mongo.js",
+    "dev:local": "nodemon --exec node src/server.local.js",
+    "dev:atlas": "nodemon --exec node src/server.atlas.js",
+    "lint": "esw src --color",
+    "lint:watch": "npm run lint -- --watch",
+    "dev:restore": "node -r esm node-mongo.js",
+    "dev:change": "node -r esm node-mongo.js"
+  },
+  "author": "Author Name",
+  "license": "ISC",
+  "dependencies": {
+    "@code-collabo/node-mongo-scripts": "^1.2.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "esm": "^3.2.25",
+    "express": "^4.18.2",
+    "mongoose": "^7.0.5",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "chalk": "^4.1.0",
+    "eslint": "^8.39.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-watch": "^8.0.0",
+    "nodemon": "^2.0.22"
+  }
+}

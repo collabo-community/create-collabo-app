@@ -1,0 +1,38 @@
+{
+  "name": "node-mongo-api-boilerplate-template-esm",
+  "version": "1.0.0",
+  "description": "@code-collabo node-mongo API boilerplate template - es module",
+  "main": "src/server.[atlas/local].js",
+  "scripts": {
+    "dev": "node -r esm node-mongo.js",
+    "dev:local": "nodemon --exec babel-node src/server.local.js",
+    "dev:atlas": "nodemon --exec babel-node src/server.atlas.js",
+    "lint": "esw src --color",
+    "lint:watch": "npm run lint -- --watch",
+    "dev:restore": "node -r esm node-mongo.js",
+    "dev:change": "node -r esm node-mongo.js"
+  },
+  "author": "Author Name",
+  "license": "ISC",
+  "dependencies": {
+    "@code-collabo/node-mongo-scripts": "^1.2.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "esm": "^3.2.25",
+    "express": "^4.18.2",
+    "mongoose": "^7.0.5",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.21.0",
+    "@babel/core": "^7.21.4",
+    "@babel/eslint-parser": "^7.21.3",
+    "@babel/node": "^7.20.7",
+    "@babel/preset-env": "^7.21.4",
+    "chalk": "^4.1.0",
+    "eslint": "^8.39.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-watch": "^8.0.0",
+    "nodemon": "^2.0.22"
+  }
+}
