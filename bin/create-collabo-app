@@ -28,7 +28,8 @@ const outDir = join('./', outDirName);
 const collabo_app = {
     cli: {
         start: () => {
-            require(`../${outDirName}/src/cli`).cli(argv);
+            // require(`../${outDirName}/src/cli`).cli(argv);
+            require(`../${outDirName}/template-download/cli`).cli(argv);
         },
         error: ({ message }) => {
             const outDirExists = folder.content.exists({ searchFolder: rootFolder, searchFor: outDirName });
