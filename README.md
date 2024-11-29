@@ -5,7 +5,7 @@ V1.0.0 development in progress. Contributions welcome. Learn how you can contrib
 #
 
 ### Contributors
-[![All Contributors](https://img.shields.io/github/all-contributors/collabo-community/create-collabo-app?color=ee8449&style=flat-square)](#contributors) [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://docs.collabocommunity.com/projects-overview) [![License: AGPL v3.0](https://img.shields.io/badge/License-AGPL%20v3.0-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
+[![All Contributors](https://img.shields.io/github/all-contributors/collabo-community/blocks-assistant?color=ee8449&style=flat-square)](#contributors) [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://docs.collabocommunity.com/projects-overview) [![License: AGPL v3.0](https://img.shields.io/badge/License-AGPL%20v3.0-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
