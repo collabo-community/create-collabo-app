@@ -4,9 +4,8 @@
   "description": "Blocks Assistant Command Line Interface (CLI) automates the usage of the Building Blocks framework in the apps or projects that we build within the Collabo Community. Collabo Community has also made it publicly available so that other persons or communities will also be able to use it to automate software development.",
   "main": "src/cli.ts",
   "bin": {
-    "@collabo-community/create-collabo-app": "bin/create-collabo-app",
-    "collabo-be": "bin/create-collabo-app",
-    "c-be": "bin/create-collabo-app"
+    "@collabo-community/blocks-assistant": "bin/blocks-assistant",
+    "blocks": "bin/blocks-assistant"
   },
   "scripts": {
     "predev": "node -r esm dev/customize/startMessage.js",
