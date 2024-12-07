@@ -1,3 +1,3 @@
-import { prettify } from '../../lib/js/helpers/prettify';
+import { log } from '@collabo-community/building-blocks';
 
-prettify.log.color.cyanBright('\nℹ create-collabo-app: running jasmine tests...\n');
+log.color.cyanBright('\nℹ blocks-assistant: running jasmine tests...\n');

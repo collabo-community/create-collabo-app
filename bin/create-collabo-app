@@ -5,8 +5,7 @@ var require = require('esm')(module /*, options */);
 const { access, constants } = require('fs');
 const { promisify } = require('util');
 const { join } = require('path');
-const { warning, error } = require('../lib/js/helpers/prettify');
-const { folder } = require('../lib/nodejs/helpers/folder');
+const { folder, log } = require('@collabo-community/building-blocks');
 
 const { argv, env } = process;
 const fs_access = promisify(access);
@@ -25,23 +24,23 @@ if (env.NODE_ENV === 'production') outDirName = 'build';
 
 const outDir = join('./', outDirName);
 
-const collabo_app = {
-    cli: {
+const collabo_cli = {
+    script: {
         start: () => {
             require(`../${outDirName}/src/cli`).cli(argv);
         },
         error: ({ message }) => {
             const outDirExists = folder.content.exists({ searchFolder: rootFolder, searchFor: outDirName });
             if (env.NODE_ENV === 'development') {
-                const dynamicErrorDetails = outDirExists ? `existing '${outDirName}' folder does not have required code to run CLI` : `No '${outDirName}' folder detected - ${message}`;
-                error(`ERROR: ${dynamicErrorDetails}`);
+                const dynamicErrorDetails = outDirExists ? `Existing '${outDirName}' folder does not have required code to run CLI` : `No '${outDirName}' folder detected - ${message}`;
+                log.error(`MEANING: ${dynamicErrorDetails}`);
                 const dynamicWarningText = outDirExists ? `correct '${outDirName}' folder content` : `'${outDirName}' folder with required content`;
-                warning(`ℹ Follow these steps to generate ${dynamicWarningText}: \n- Open up another terminal, run the 'npm run dev' script command there (keep this new terminal open always)\n- Go back to running the 'collabo-be' command in the previously open terminal, the CLI should now run successfully`);
+                log.warning(`ℹ Follow these steps to generate ${dynamicWarningText}: \n- Open up another terminal, run the 'npm run dev' script command there (keep this new terminal open always)\n- Go back to running the 'collabo-be' command in the previously open terminal, the CLI should now run successfully`);
                 // TODO: (if it still crashes after following the help steps above) Report issue
             }
             if (env.NODE_ENV === 'production') {
                 const dynamicErrorDetails = outDirExists ? `Cannot run '${outDirName}' folder content` : `'${outDirName}' folder not found`;
-                error(`ERROR: ${dynamicErrorDetails}`);
+                log.error(`MEANING: ${dynamicErrorDetails}`);
                 // TODO: Report issue
             }
         },
@@ -56,11 +55,12 @@ const collabo_app = {
     },
 };
 
-collabo_app.run({
+collabo_cli.run({
     success: () => {
-        collabo_app.cli.start();
+        collabo_cli.script.start();
     },
     error: ({ err }) => {
-        collabo_app.cli.error({ message: err.message });
+        log.error(`\n==========================\n${err}\n==========================\n`);//
+        collabo_cli.script.error({ message: err.message });
     }
 });

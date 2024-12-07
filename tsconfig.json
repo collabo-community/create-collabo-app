@@ -1,19 +1,17 @@
 {
-  "display": "Node LTS",
-  "_version": "20.1.0",
   "compilerOptions": {
-    "lib": ["es2023"],
-    "module": "ES2022",
-    "target": "ES5",
+    "target": "es2016",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
     "strict": true,
+    "noImplicitAny": true,
     "allowJs": true,
     "checkJs": false,
     "resolveJsonModule": true,
     "noUncheckedIndexedAccess": true,
-    "esModuleInterop": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "moduleResolution": "Node"
   },
   "include": ["./src/"]
 }
