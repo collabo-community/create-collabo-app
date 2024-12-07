@@ -7,11 +7,6 @@
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "noImplicitAny": true,
-    "allowJs": true,
-    "checkJs": false,
-    "resolveJsonModule": true,
-    "noUncheckedIndexedAccess": true,
     "skipLibCheck": true,
   },
-  "include": ["./src/"]
 }
