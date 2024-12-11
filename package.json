@@ -8,7 +8,7 @@
     "blocks": "bin/blocks-assistant"
   },
   "scripts": {
-    "cli:dev": "npm-run-all --parallel tsconfig:dev:watch",
+    "cli:dev:dist": "npm-run-all --parallel tsconfig:dev:watch dev:dist",
     "cli:prod:build": "npm-run-all --parallel lint tsconfig:prod prod:build",
     "cli:cleanup": "node -r esm dev/cleanup.js",
     "divider1": "-----------------------------------------",
@@ -17,6 +17,7 @@
     "tsconfig:dev:watch": "tsc-watch --noClear -p ./tsconfig.dev.json --onSuccess \"npm run lint\"",
     "divider2": "-----------------------------------------",
     "prod:build": "blocks-assistant",
+    "dev:dist": "blocks-assistant",
     "predev": "node -r esm dev/customize/startMessage.js",
     "divider3": "-----------------------------------------",
     "test": "npm-run-all --parallel test-message dev-test",
