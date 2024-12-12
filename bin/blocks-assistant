@@ -4,7 +4,7 @@ var require = require('esm')(module /*, options */);
 
 const { access, constants } = require('fs');
 const { promisify } = require('util');
-const { blocks , folder, file, log, prettify, run } = require('@collabo-community/building-blocks');
+const { blocks, log } = require('@collabo-community/building-blocks');
 
 const { argv, env } = process;
 const fs_access = promisify(access);
@@ -12,14 +12,7 @@ const fs_access = promisify(access);
 const collabo_cli = {
     script: {
         start: async () => {
-            // let blocksCommand = blocks.command.get();
-            let npmLifeCycleEvent = env.npm_lifecycle_event;
-            let isBlocksCommand = !npmLifeCycleEvent;
-            // console.log({ /*pkgScripts,*/ blocksCommand, isBlocksCommand, script });
-            //---------------------------------
-            const settings = { cli: { blocks: { command: isBlocksCommand, script: npmLifeCycleEvent } }};
-            blocks.cli.config.set({ settings });
-            //---------------------------------
+            blocks.cli.config.set({ env });
         },
         error: ({ message }) => {
             log.error(`${message}`);
