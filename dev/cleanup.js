@@ -1,7 +1,7 @@
 import { readdirSync, rmdirSync } from 'fs';
 import { repo } from './developer';
 const { cwd, chdir } = process;
-import { success, warning, error, prettify } from '../lib/js/helpers/prettify';
+import { log } from '@collabo-community/building-blocks';
 
 // cd into repo root
 chdir('../');
@@ -9,7 +9,7 @@ chdir('../');
 // use repo root
 const rootDir = cwd();
 
-// return all files and folders in repo root i.e. original + create-collabo-app generated
+// return all files and folders in repo root i.e. original + blocks-assistant generated
  const repoContent = readdirSync(rootDir, (err, filesAndFolders) => {
     if (err) {
       throw err;
@@ -29,14 +29,14 @@ const filterContentToGetTheOnesGeneratedByCLI = repoContent.reduce((acc, curr) =
 if (filterContentToGetTheOnesGeneratedByCLI.length) {
   try {
     filterContentToGetTheOnesGeneratedByCLI.map(folder => {
-      success(`✔ ${folder} folder deleted successfully`);
+      log.success(`✔ ${folder} folder deleted successfully`);
       return rmdirSync(folder, { recursive: true, force: true });
     });
-    prettify.log.color.none('');
+    log.color.none('');
   } catch (err) {
-    error(err);
+    log.error(err);
   }
 } else {
-  warning('ℹ There are no project folders to delete yet. Generate project folder(s) using the "collabo-be" command, then run the cleanup script after you are done developing, and are ready to add and push your changes/fixes to GitHub.\n');
+  log.warning('ℹ There are no project folders to delete yet. Generate project folder(s) using the "collabo-be" command, then run the cleanup script after you are done developing, and are ready to add and push your changes/fixes to GitHub.\n');
 }
 

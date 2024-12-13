@@ -1,3 +1,3 @@
-import { success } from '../../lib/js/helpers/prettify';
+import { log } from '@collabo-community/building-blocks';
 
-success('\nℹ create-collabo-app: running in dev mode...\n');
+log.success('\nℹ blocks-assistant: running in dev mode...\n');

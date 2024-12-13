@@ -1,11 +1,5 @@
 import arg from 'arg';
-import { version } from './version';
-import { help, notRecognised } from './help';
-import { folderNameMissingOptionPrompt } from './prompts/foldername';
-import { templateMissingOptionPrompt } from './prompts/template';
-import { downloadTemplateKit } from './main';
-import { Ioptions } from './interfaces';
-import { prettify } from '../lib/js/helpers/prettify';
+import { log } from '@collabo-community/building-blocks';
 
 let parseArgumentsIntoOptions = (rawArgs: string[]) => {
 
@@ -59,44 +53,10 @@ let parseArgumentsIntoOptions = (rawArgs: string[]) => {
       version: args['--version'] || false
     }
   } catch (err) {
-    notRecognised();
-  }
-}
-
-let otherOptions = async (options: Ioptions) => {
-  if (options.skipInstall) {
-    options.runInstall = false;
-  }
-
-  if (options.skipGit) {
-    options.git = false;
-  }
-
-  let [updatedOptions, folderNameAnswers, defaultFolderName] = await folderNameMissingOptionPrompt(options);
-
-  options = await templateMissingOptionPrompt(updatedOptions, folderNameAnswers, defaultFolderName);
-
-  // consoleLog(options);
-
-  try {
-    await downloadTemplateKit(options);
-  } catch (err) {
-    prettify.log.color.redBold('ERROR', err);
+    log.error(`${err}`);
   }
 }
 
 export let cli = async (args: string[]) => {
-  let options = parseArgumentsIntoOptions(args);
-
-  try {
-    if (options?.help) {
-      help();
-    } else if (options?.version) {
-      version();
-    } else {
-      await otherOptions(options as Ioptions);
-    }
-  } catch (err) {
-    prettify.log.color.none('');
-  }
+  log.success(`Yay! - ${args}`);
 }
