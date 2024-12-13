@@ -10,17 +10,27 @@ const { argv, env } = process;
 const fs_access = promisify(access);
 
 const collabo_cli = {
+    get: {
+        outputDirectory: async () => {
+            const configFetch = blocks.cli.config.get({ env });
+            const config = await configFetch;
+            const outputDirectory = config?.cli?.isInDevMode ? 'dist' : 'build';
+            return outputDirectory;
+        },
+    },
     script: {
         start: async () => {
-            blocks.cli.config.set({ env });
+            require(`../${collabo_cli.get.outputDirectory()}/src/cli`).cli(argv);
         },
         error: ({ message }) => {
             log.error(`${message}`);
+            blocks.cli.config.setAndRunBuildScripts({ env });
+            log.warning('Finished building!');
         },
     },
     run: async ({ next, error }) => {
         try {
-            //
+            await fs_access(collabo_cli.get.outputDirectory(), constants.F_OK);
             next();
         } catch(err) {
             error({ err });
