@@ -20,7 +20,8 @@ const collabo_cli = {
     },
     script: {
         start: async () => {
-            require(`../${collabo_cli.get.outputDirectory()}/src/cli`).cli(argv);
+            const outputDirectory = await collabo_cli.get.outputDirectory();
+            require(`../${outputDirectory}/src/cli`).cli(argv);
         },
         error: ({ message }) => {
             log.error(`${message}`);
@@ -30,7 +31,8 @@ const collabo_cli = {
     },
     run: async ({ next, error }) => {
         try {
-            await fs_access(collabo_cli.get.outputDirectory(), constants.F_OK);
+            const outputDirectory = await collabo_cli.get.outputDirectory();
+            await fs_access(outputDirectory, constants.F_OK);
             next();
         } catch(err) {
             error({ err });
